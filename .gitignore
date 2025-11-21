@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+.env
+.streamlit/
+datos/usuarios.json
+datos/limites_uso.json
+venv/
+.DS_Store
+*.log
