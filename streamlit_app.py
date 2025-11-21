@@ -371,11 +371,7 @@ def main():
         @st.cache_resource
         def cargar_agente():
             integrador = DataIntegrator()
-            df = integrador.cargar_y_unir_datasets()
-            api_key = st.secrets["DEEPSEEK_API_KEY"]
-                # 🔍 PRUEBA: verificar si se está cargando la API key
-            st.write("DEBUG → API Key cargada:", api_key)   # 👈 debug
-            
+            df = integrador.cargar_y_unir_datasets()          
             api_key = st.secrets["DEEPSEEK_API_KEY"]
             return AgenteAnaliticoLLM(df, api_key)
         
