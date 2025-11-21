@@ -30,14 +30,14 @@ class GestorAutenticacion:
         """Crea archivo si no existe"""
         if not os.path.exists(self.archivo):
             usuarios_default = {
-                "admin@alcaldia.mx": {
+                "admin@alcaldia-ao.mx": {
                     "password_hash": self._hash_password("admin123"),
                     "nombre": "Admin PAPE",
                     "rol": "administrador",
                     "activo": True,
                     "fecha_creacion": datetime.now().isoformat()
                 },
-                "funcionario@alcaldia.mx": {
+                "funcionario@alcaldia-ao.mx": {
                     "password_hash": self._hash_password("func123"),
                     "nombre": "Funcionario Test",
                     "rol": "analista",
@@ -298,11 +298,6 @@ def main():
                         st.error(f"❌ {nombre}")
                 
                 st.markdown("---")
-                st.markdown("""
-                **Credenciales de Prueba:**
-                - 📧 funcionario@alcaldia.mx
-                - 🔑 func123
-                """)
             
             with tab2:
                 st.markdown("### Crear Nueva Cuenta (Solo Demo)")
@@ -377,6 +372,10 @@ def main():
         def cargar_agente():
             integrador = DataIntegrator()
             df = integrador.cargar_y_unir_datasets()
+            api_key = st.secrets["DEEPSEEK_API_KEY"]
+                # 🔍 PRUEBA: verificar si se está cargando la API key
+            st.write("DEBUG → API Key cargada:", api_key)   # 👈 debug
+            
             api_key = st.secrets["DEEPSEEK_API_KEY"]
             return AgenteAnaliticoLLM(df, api_key)
         
