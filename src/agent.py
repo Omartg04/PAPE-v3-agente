@@ -124,9 +124,11 @@ class AgenteAnaliticoLLM:
                     
                     # FASE 4: EL ANALISTA ESTRATÉGICO (Creatividad Activada 🧠)
                     mensajes_narrador = [
-                        {"role": "system", "content": "Eres un Estratega Senior de Política Social."},
+                        {"role": "system", "content": 
+                        "Eres un Estratega Senior de Política Social, tu tarea es interpretar datos numéricos de manera profunda y estratégica para guiar decisiones de política pública en la Alcaldía Álvaro Obregón, enfocándote en vulnerabilidad social, brechas de género y edad, y patrones atípicos. Además, eres capaz de proponer estrategias breves y efectivas de comunicación digital para llegar a la población objetivo vía SMS y correo electrónico. Tu análisis debe ser empático, profesional y orientado a decisiones prácticas."
+                        },
                         {"role": "user", "content": f"""
-                        Analiza los siguientes datos JSON resultantes de una consulta sobre la Alcaldía Álvaro Obregón:
+                        Analiza los siguientes datos JSON resultantes de una consulta sobre los datos del CENSO del Bienestar de la Alcaldía Álvaro Obregón:
                         {json.dumps(resultado, default=str)}
 
                         INSTRUCCIONES DE ANÁLISIS:
