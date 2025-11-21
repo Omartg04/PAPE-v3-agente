@@ -145,7 +145,7 @@ class AgenteAnaliticoLLM:
                     final = self.client.chat.completions.create(
                         model="deepseek-chat", 
                         messages=mensajes_narrador, 
-                        temperature=0.7 # Subimos temperatura para recuperar creatividad y elocuencia
+                        temperature=0.4 # Subimos temperatura para recuperar creatividad y elocuencia
                     )
                     
                     texto_analisis = final.choices[0].message.content
