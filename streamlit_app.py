@@ -220,7 +220,7 @@ class GestorRateLimiting:
 
 def main():
     st.set_page_config(
-        page_title="PAPE V3 - Política Social",
+        page_title="PAPE V3 - Agente AI",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -271,7 +271,7 @@ def main():
         with col2:
             st.markdown("---")
             st.title("🏛️ PAPE V3")
-            st.subheader("Agente de Política Social Álvaro Obregón")
+            st.subheader("Agente AI Censo Álvaro Obregón")
             st.markdown("---")
             
             # Tabs: Login / Registro (solo para demo, en prod controlar con permisos)
@@ -364,7 +364,7 @@ def main():
                 st.rerun()
         
         # CONTENIDO PRINCIPAL
-        st.title("🏛️ PAPE V3 - Análisis de Política Social")
+        st.title("🏛️ PAPE V3 - Análisis AI de datos del Censo")
         st.markdown(f"*Alcaldía Álvaro Obregón | Usuario: {st.session_state.nombre_usuario}*")
         
         # Cargar agente
