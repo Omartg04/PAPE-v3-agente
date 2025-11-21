@@ -7,4 +7,4 @@ datos/limites_uso.json
 venv/
 .DS_Store
 *.log
-data/data_01/
+data/01_data/
