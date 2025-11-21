@@ -377,7 +377,7 @@ def main():
         def cargar_agente():
             integrador = DataIntegrator()
             df = integrador.cargar_y_unir_datasets()
-            api_key = os.getenv("DEEPSEEK_API_KEY")
+            api_key = st.secrets["DEEPSEEK_API_KEY"]
             return AgenteAnaliticoLLM(df, api_key)
         
         agente = cargar_agente()
