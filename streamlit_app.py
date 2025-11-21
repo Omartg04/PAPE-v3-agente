@@ -30,14 +30,14 @@ class GestorAutenticacion:
         """Crea archivo si no existe"""
         if not os.path.exists(self.archivo):
             usuarios_default = {
-                "admin@alcaldia-ao.mx": {
+                "admin@alcaldia.mx": {
                     "password_hash": self._hash_password("admin123"),
                     "nombre": "Admin PAPE",
                     "rol": "administrador",
                     "activo": True,
                     "fecha_creacion": datetime.now().isoformat()
                 },
-                "funcionario@alcaldia-ao.mx": {
+                "funcionario@alcaldia.mx": {
                     "password_hash": self._hash_password("func123"),
                     "nombre": "Funcionario Test",
                     "rol": "analista",
