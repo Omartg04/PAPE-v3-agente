@@ -46,6 +46,7 @@ CONSTANTES_MAPEO = {
         "edad": "edad_persona",
         "parentesco": "parentesco_persona",
         "colonia": "colonia",
+        "ageb":"ageb",
         "carencia_salud": "presencia_carencia_salud_persona",
         "carencia_educacion": "presencia_rezago_educativo_persona",
         "carencia_seguridad": "presencia_carencia_seguridad_social_persona"

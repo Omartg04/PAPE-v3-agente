@@ -7,44 +7,49 @@ class AnalizadorProgramasSociales:
         self.df = df
 
     def _aplicar_filtros(self, filtros: Dict) -> pd.DataFrame:
-        df_f = self.df.copy()
+            df_f = self.df.copy()
 
-        # 1. Geográfico (BLINDADO CONTRA ERRORES DE TIPO)
-        ub = filtros.get('ubicacion')
-        if ub:
-            # Limpieza de prefijos
-            ub_clean = ub.lower().replace('colonia', '').replace('pueblo', '').replace('barrio', '').strip()
-            term = ub_clean if len(ub_clean) > 2 else ub
-            
-            # Forzamos conversión a string (.astype(str)) para evitar AttributeError
-            mascara = (
-                df_f['colonia'].astype(str).str.contains(term, case=False, na=False) |
-                df_f['ageb'].astype(str).str.contains(term, case=False, na=False)
-            )
-            df_f = df_f[mascara]
+            # 1. Geográfico (CORREGIDO PARA AGEBs)
+            ub = filtros.get('ubicacion')
+            if ub:
+                # Limpieza: quitamos "ageb", "colonia", etc. para dejar solo el nombre/número
+                ub_clean = ub.lower()\
+                    .replace('colonia', '')\
+                    .replace('pueblo', '')\
+                    .replace('barrio', '')\
+                    .replace('ageb', '')\
+                    .strip() # <--- ¡AGREGADO .replace('ageb', '')!
+                
+                term = ub_clean if len(ub_clean) > 0 else ub
+                
+                # Buscamos en ambas columnas convirtiendo a string
+                mascara = (
+                    df_f['colonia'].astype(str).str.contains(term, case=False, na=False) |
+                    df_f['ageb'].astype(str).str.contains(term, case=False, na=False)
+                )
+                df_f = df_f[mascara]
 
-        # 2. Demográfico
-        edad = filtros.get('rango_edad')
-        if edad and len(edad) == 2:
-            df_f = df_f[(df_f['edad_persona'] >= edad[0]) & (df_f['edad_persona'] <= edad[1])]
+            # ... resto de filtros (edad, sexo, etc.) igual ...
+            edad = filtros.get('rango_edad')
+            if edad and len(edad) == 2:
+                df_f = df_f[(df_f['edad_persona'] >= edad[0]) & (df_f['edad_persona'] <= edad[1])]
 
-        sexo = filtros.get('sexo')
-        if sexo:
-            df_f = df_f[df_f['sexo_persona'] == sexo]
+            sexo = filtros.get('sexo')
+            if sexo:
+                df_f = df_f[df_f['sexo_persona'] == sexo]
 
-        parentesco = filtros.get('parentesco')
-        if parentesco:
-            val_real = CONSTANTES_MAPEO['PARENTESCOS'].get(parentesco.lower(), parentesco)
-            df_f = df_f[df_f['parentesco_persona'] == val_real]
+            parentesco = filtros.get('parentesco')
+            if parentesco:
+                val_real = CONSTANTES_MAPEO['PARENTESCOS'].get(parentesco.lower(), parentesco)
+                df_f = df_f[df_f['parentesco_persona'] == val_real]
 
-        # 3. Carencias
-        carencia = filtros.get('carencia_tipo')
-        if carencia:
-            col = CONSTANTES_MAPEO['CARENCIAS'].get(carencia)
-            if col:
-                df_f = df_f[df_f[col] == 'yes']
+            carencia = filtros.get('carencia_tipo')
+            if carencia:
+                col = CONSTANTES_MAPEO['CARENCIAS'].get(carencia)
+                if col:
+                    df_f = df_f[df_f[col] == 'yes']
 
-        return df_f
+            return df_f
 
     def analisis_general(self, filtros: Dict) -> Dict:
         df_base = self._aplicar_filtros(filtros)
